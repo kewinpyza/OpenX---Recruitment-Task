@@ -86,3 +86,50 @@ async function getHighestCartValue() {
 }
 
 getHighestCartValue().then((data) => console.log("Point 3:", data));
+
+// 4. Finds the two users living furthest away from each other
+// Inspired by: https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
+// and https://en.wikipedia.org/wiki/Haversine_formula
+
+const getDistance = (lat1, lng1, lat2, lng2) => {
+  const R = 6371; // Radius of the earth in km
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
+
+  // Haversine formula
+  const a =
+    0.5 -
+    Math.cos(dLat) / 2 +
+    (Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      (1 - Math.cos(dLng))) /
+      2;
+
+  return R * 2 * Math.asin(Math.sqrt(a));
+};
+
+const getFurthestUsers = async () => {
+  const users = await getUserData();
+  let maxDistance = 0;
+  let furthestUsers;
+
+  for (let i = 0; i < users.length; i++) {
+    for (let j = i + 1; j < users.length; j++) {
+      const distance = getDistance(
+        users[i].address.geolocation.lat,
+        users[i].address.geolocation.long,
+        users[j].address.geolocation.lat,
+        users[j].address.geolocation.long
+      );
+
+      if (distance > maxDistance) {
+        maxDistance = distance;
+        furthestUsers = [users[i], users[j]];
+      }
+    }
+  }
+
+  return { users: furthestUsers, distanceInKM: `${maxDistance.toFixed(3)}` };
+};
+
+getFurthestUsers().then((data) => console.log("Point 4:", data));

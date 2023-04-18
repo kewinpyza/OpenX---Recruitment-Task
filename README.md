@@ -5,5 +5,4 @@
 
 #### To do:
 
-- Point 4
 - Tests
