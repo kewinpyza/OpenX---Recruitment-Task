@@ -1,0 +1,26 @@
+{
+  "name": "openx-recruitment-task-2",
+  "version": "1.0.0",
+  "description": "<p>I have chosen second task using data from links.</p>\r <p>The program was implemented by me in JavaScript.</p>",
+  "default": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kewinpyza/OpenX---Recruitment-Task.git"
+  },
+  "author": "Kewin Pyza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kewinpyza/OpenX---Recruitment-Task/issues"
+  },
+  "homepage": "https://github.com/kewinpyza/OpenX---Recruitment-Task#readme",
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "npm": "^9.6.4",
+    "parcel": "^2.8.3"
+  }
+}

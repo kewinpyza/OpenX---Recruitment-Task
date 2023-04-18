@@ -59,6 +59,10 @@ async function getHighestCartValue() {
   const carts = await getCartData();
   const products = await getProductData();
 
+  if (carts.length === 0) {
+    return null;
+  }
+
   const cartValues = carts.map((cart) => {
     const owner = users.find((user) => user.id === cart.userId);
     const fullName = `${
@@ -88,7 +92,7 @@ async function getHighestCartValue() {
 getHighestCartValue().then((data) => console.log("Point 3:", data));
 
 // 4. Finds the two users living furthest away from each other
-// Inspired by: https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
+// Inspired getDistance function by: https://stackoverflow.com/questions/18883601/function-to-calculate-distance-between-two-coordinates
 // and https://en.wikipedia.org/wiki/Haversine_formula
 
 const getDistance = (lat1, lng1, lat2, lng2) => {
@@ -110,6 +114,11 @@ const getDistance = (lat1, lng1, lat2, lng2) => {
 
 const getFurthestUsers = async () => {
   const users = await getUserData();
+
+  if (users.length < 2) {
+    return null;
+  }
+
   let maxDistance = 0;
   let furthestUsers;
 
@@ -133,3 +142,12 @@ const getFurthestUsers = async () => {
 };
 
 getFurthestUsers().then((data) => console.log("Point 4:", data));
+
+module.exports = {
+  getUserData,
+  getProductData,
+  getCartData,
+  getCategories,
+  getHighestCartValue,
+  getFurthestUsers,
+};
